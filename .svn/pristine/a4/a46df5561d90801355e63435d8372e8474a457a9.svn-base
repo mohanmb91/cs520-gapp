@@ -1,0 +1,164 @@
+--inserting user role
+
+INSERT INTO user_role(
+            role)
+    VALUES ('student');
+
+    INSERT INTO user_role(
+             role)
+    VALUES ('staff');
+
+    INSERT INTO user_role(
+             role)
+    VALUES ('admin');
+
+     --inserting users
+    
+  select * from users;  INSERT INTO public.users(
+             email_id, enabled, first_name,last_name, password, user_name, userrole_id)
+    VALUES ('mohan@localhost.localdomain',true , 'mohankumar','M balasubramani', 'password@01','mohan', 3);
+INSERT INTO public.users(
+             email_id, enabled, first_name,last_name, password, user_name, userrole_id)
+    VALUES ('cysun@localhost.localdomain',true , 'cysun','LastName', 'cysun','cysun', 2);
+    INSERT INTO public.users(
+             email_id, enabled, first_name,last_name, password, user_name, userrole_id)
+    VALUES ('misha@localhost.localdomain',true , 'misha','Chandhan', 'misha','misha', 2);
+    INSERT INTO public.users(
+             email_id, enabled, first_name,last_name, password, user_name, userrole_id)
+    VALUES ('student1@localhost.localdomain',true , 'student1','LastName1', 'student1','student1', 1);
+    INSERT INTO public.users(
+             email_id, enabled, first_name,last_name, password, user_name, userrole_id)
+    VALUES ('student2@localhost.localdomain',true , 'student2','LastName2', 'student2','student2', 1);
+
+  
+    
+      -- inserting departmetns
+    
+    insert into public.departments( dept_name)
+    values('Accounting');
+    insert into public.departments( dept_name)
+    values('Computer Science');
+    
+    -- inserting programs
+    
+    INSERT INTO public.programs(
+             name, department_id)
+    VALUES ( 'MS in Accounting', 1);
+    INSERT INTO public.programs(
+             name, department_id)
+    VALUES ( 'MS in Computer Science', 2);
+    
+    -- inserting status 
+    INSERT INTO public.application_status(status
+            )
+    VALUES ('New');
+    INSERT INTO public.application_status(status
+            )
+    VALUES ('Pending Review');
+	INSERT INTO public.application_status(status
+            )
+    VALUES ('Denied');
+	INSERT INTO public.application_status(status
+            )
+    VALUES ('Recommend Admit');
+	INSERT INTO public.application_status(status
+            )
+    VALUES ('Recommend Admit w/ Condition');
+    
+    -- inserting into acedemics
+    INSERT INTO public.academics(file_location_transcript,gpa,gre_score,tofel_score
+            )
+    VALUES ('some_location',4.0,300,92);
+    INSERT INTO public.academics(file_location_transcript,gpa,gre_score,tofel_score
+            )
+    VALUES ('some_location2',3.8,296,89);
+    
+    --inserting into educational background
+    
+    INSERT INTO public.education_background(major,college,degree,degree_earned,from_date,to_date
+            )
+    VALUES ('computer science','Anna University','under graduate','BE.Computer Science','2008-04-22','2012-03-24');
+  
+    INSERT INTO public.education_background(major,college,degree,degree_earned,from_date,to_date
+            )
+    VALUES ('Information Technology','Anna University','under graduate','B Tech IT','2008-04-22','2012-03-24');
+    
+    -- inserting into students
+    
+    INSERT INTO public.students(
+             cin, citizenship, date_of_birth, email_id, first_name, gender, last_name,
+            phone_number, user_name, academics_id, user_id)
+    VALUES (305049490, 'Indian','1991-08-12', 'student1@localhost.localdomain', 'student1','male', 'lastname1',
+            '6265543207', 'student1', 1, 4);
+            
+	INSERT INTO public.students(
+             cin, citizenship, date_of_birth, email_id, first_name, gender, last_name,
+            phone_number, user_name, academics_id, user_id)
+    VALUES ('', 'American','1994-16-09', 'student2@localhost.localdomain', 'student2','male','lastname1', 
+            '6265874412', 'student2', 2, 5);
+    
+	-- inserting into Student educational background
+	
+	INSERT INTO public.students_education_background(
+            students_id, educationbackgrounds_id)
+    VALUES (2,2);
+
+	-- inserting into additional_department_feilds
+	
+	INSERT INTO public.additional_department_feilds(
+             feild_type, required, required_feild, department_id)
+    VALUES ('Number',  true, 'Gmat', 1);
+    INSERT INTO public.additional_department_feilds(
+             feild_type, required, required_feild, department_id)
+    VALUES ('text',  true, 'SOP(statement of purpose)', 1);
+
+	--insert into departments_additional_department_feilds
+    INSERT INTO public.departments_additional_department_feilds(
+            departments_id, deptrequirements_id)
+    VALUES (1,1);
+
+    INSERT INTO public.departments_additional_department_feilds(
+            departments_id, deptrequirements_id)
+    VALUES (1,2);
+    
+    -- insert into applications 
+    
+    INSERT INTO public.applications(
+             term,program_id, student_id)
+    VALUES ( 'Fall 2016',1, 1);
+
+    
+    -- insert into additional_department_feild_values
+    INSERT INTO public.additional_department_feild_values(
+             feild_values, application_id, feilddetails_id)
+    VALUES ( '900', 1, 1);
+INSERT INTO public.additional_department_feild_values(
+             feild_values, application_id, feilddetails_id)
+    VALUES ( 'here we can give the location of ', 1, 2);
+    
+    -- inserting into applications_additional_department_feild_values
+    INSERT INTO public.applications_additional_department_feild_values(
+            applications_id, additionaldepartmentfeildvalues_id)
+    VALUES (1, 1);
+
+
+INSERT INTO public.applications_additional_department_feild_values(
+            applications_id, additionaldepartmentfeildvalues_id)
+    VALUES (1, 2);
+    
+    -- inserting into departments_programs
+    
+    INSERT INTO public.departments_programs(
+            departments_id, programs_id)
+    VALUES (1, 1);
+
+    INSERT INTO public.departments_programs(
+            departments_id, programs_id)
+    VALUES (2, 2);
+
+    
+    -- inserting into students_applications
+    INSERT INTO public.students_applications(
+            students_id, applications_id)
+    VALUES (1, 1);
+

@@ -1,0 +1,186 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Student Applications</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+<script type="text/javascript" src="../javascript/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+	   $('#department').change(function(){
+	   	var departmentID = $( "#department").val();
+	   	$.ajax({
+	           url: '../student/GetProgram.html',
+	           data: ({
+	                   departmentID : departmentID,
+	               }),
+	               success: function(data){ 
+	            	   var data = data.split("*****");
+	            	   var program = data[0];
+	            	   //var additionalFeild = data[1];
+	            	   $('#program').html(program); 
+	            	   //$('#additionalRequirements').html(additionalFeild);
+	            	   }
+	       });
+	   });
+	});	
+	</script>
+</head>
+<body class="container-fluid">
+
+<div class="container">
+<div class="jumbotron">
+<h1>GRADUATE ADMISSION</h1>      
+</div>
+<div class="panel panel-default">
+	<!-- application academics -->
+<div class="panel-heading">new application has been created for ${application.userName }!! kindly add and save the info<span style="float:right;"><a href = "/springmvc/logout.html"> Log Out</a>
+</span></div>
+<div class="panel-body">
+<form class="form" action="addNewApplication.html" method="post">
+	<div class="form-group">
+		  <label for="department">Department Name:</label>
+		  <select id="department" class="form-control">
+		  <option disabled selected>    </option>
+		  <c:forEach items="${department }" var="eachDepartment">
+		  <option value = "${eachDepartment.id }">${eachDepartment.name }</option>
+		  </c:forEach>
+		  </select>
+	</div>
+	<div class="form-group">
+		  <label for="program">Program Name:</label>
+		  <select id="program" class="form-control" required="required">
+		  </select>
+	</div>
+	<div class="form-group">
+		  <label for="program">Term:</label>
+		  <select id="term" class="form-control" required="required">
+		  <option selected disabled class="form-control"></option>
+		  <option class="form-control" value="Fall 2016">Fall 2016</option>
+		  <option class="form-control" value="Fall 2016">Spring 2017</option>
+		  <option class="form-control" value="Fall 2016">Fall 2017</option>
+		  </select>
+	</div>
+	<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">Additional Requirements</div>
+	<!-- <div class="panel-body" id="additionalRequirements">
+		
+	</div> -->
+	</div>
+	
+
+<!-- application basic info -->
+<div class="panel panel-default">
+	<div class="panel panel-default">
+			<div class = "panel-heading">Student Basic Info<span style="float:right;"><a href = "editBasicInfo.html?applicationId=${application.id}"> Edit Basic Info</a></span></div>
+			<div class = "panel-body">
+				<table class="table">
+				<tr>
+				<th>User Name</th>
+				<th>Last Name</th>
+				<th>Email Id</th>
+				<th>Cin</th>
+				<th>Phone Number</th>
+				<th>Gender</th>
+				<th>DOB</th>
+				<th>Citizenship</th>
+				</tr>
+				<tr>
+				<td><c:choose><c:when test="${not empty application.userName}">${application.userName}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.last_name}">${application.last_name}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.emailId}">${application.emailId}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.cin}">${application.cin}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.phoneNumber}">${application.phoneNumber}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.gender}">${application.gender}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.dateOfBirth}">${application.dateOfBirth}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				<td><c:choose><c:when test="${not empty application.citizenship}">${application.citizenship}</c:when><c:otherwise>N/A</c:otherwise></c:choose> </td>
+				</tr>
+				</table>
+			</div>
+		</div>	
+	
+	<div class = "panel-heading">Student Educational Background</div>
+			<div class = "panel-body">
+			<table class = "table">
+			<tr>     
+				<th>Degree</th>     
+				<th>College</th>
+				<th>FromDate</th>
+				<th>ToDate</th>
+				<th>DegreeEarned</th>
+				<th>Major</th>
+				<th>operations</th>
+			</tr>
+			<c:choose>
+			<c:when test="${ empty application.educationBackgrounds }">
+			<tr>
+			<td colspan="7">educational background not found. kindly add</td>
+			</tr>
+			</c:when>
+			<c:otherwise>
+			<c:set scope="session" var="applicationId" value="${application.id }"></c:set>
+			<c:forEach items="${application.educationBackgrounds }" var="eachEducationalBackground">
+			<tr>
+			<td>${eachEducationalBackground.degree }</td>
+			<td>${eachEducationalBackground.college }</td>
+			<td>${eachEducationalBackground.fromDate }</td>
+			<td>${eachEducationalBackground.toDate }</td>
+			<td>${eachEducationalBackground.degreeEarned }</td>
+			<td>${eachEducationalBackground.major }</td>
+			<td><a href="removeEducationBackground.html?educationalBG=${eachEducationalBackground.id}&applicationId=${applicationId}">Remove</a></td>
+			</tr>
+			</c:forEach>
+			</c:otherwise>
+			</c:choose>
+			</table>
+			<a href="addNewEducationalBackground.html?applicationId=${application.id}">
+			<span class="glyphicon glyphicon-plus-sign"></span><span> Add New Educational Background</span></a>
+			</div>
+</div>
+<!-- application academics -->
+<div class="panel panel-default">
+		<div class = "panel-heading">Student Academics<span style="float:right;"><a href = "addNewAcademics.html?applicationId=${application.id}">Add or edit academics here Info</a></span></div>
+			<div class = "panel-body">
+			<table class = "table">
+			<tr>     
+				<th>GRE</th>     
+				<th>GPA</th>
+				<th>TOFEL</th>
+				<th>Download Uploaded File</th>
+				<th>Operation</th>
+			</tr>
+			<c:choose>
+			<c:when test="${ empty application.academics }">
+			<tr>
+			<td colspan="5">Student has not yet filled Academics details. kindly update</td>
+			</tr>
+			</c:when>
+			<c:otherwise>
+			<c:set scope="session" var="applicationId" value="${application.id }"></c:set>
+			<tr>
+			<td>${application.academics.greScore }</td>
+			<td>${application.academics.gpa }</td>
+			<td>${application.academics.tofelScore }</td>
+			<td>${application.academics.fileLocationTranscript }</td>
+			<td><a href="downloadFile.html?fileName=${application.id }_${application.academics.fileLocationTranscript}">View File</a></td>
+			</tr>
+			</c:otherwise>
+			</c:choose>
+			</table>
+			</div>
+		</div>
+<button class="btn-primary btn-block" type="submit">Save Application</button>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

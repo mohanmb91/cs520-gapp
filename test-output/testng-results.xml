@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="4166" started-at="2016-02-01T20:58:11Z" finished-at="2016-02-01T20:58:15Z">
+    <groups>
+      <group name="ApplicationDaoTest">
+        <method signature="ApplicationDaoTest.checkStudent1HasOneApplication()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" name="checkStudent1HasOneApplication" class="springmvc.model.dao.ApplicationDaoTest"/>
+        <method signature="ApplicationDaoTest.getApplicationForFall2016InAccounting()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" name="getApplicationForFall2016InAccounting" class="springmvc.model.dao.ApplicationDaoTest"/>
+      </group> <!-- ApplicationDaoTest -->
+    </groups>
+    <test name="Default test" duration-ms="4166" started-at="2016-02-01T20:58:11Z" finished-at="2016-02-01T20:58:15Z">
+      <class name="springmvc.model.dao.ApplicationDaoTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="springTestContextBeforeTestClass" is-config="true" duration-ms="21" started-at="2016-02-01T12:58:11Z" finished-at="2016-02-01T12:58:11Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method name="springTestContextPrepareTestInstance" test-instance-name="" signature="springTestContextPrepareTestInstance()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" is-config="true" status="PASS" duration-ms="3608" finished-at="2016-02-01T12:58:15Z" started-at="2016-02-01T12:58:11Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="113" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void springmvc.model.dao.ApplicationDaoTest.checkStudent1HasOneApplication()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="checkStudent1HasOneApplication()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="checkStudent1HasOneApplication" duration-ms="354" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkStudent1HasOneApplication -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="springTestContextAfterTestMethod" is-config="true" duration-ms="15" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void springmvc.model.dao.ApplicationDaoTest.checkStudent1HasOneApplication()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="6" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void springmvc.model.dao.ApplicationDaoTest.getApplicationForFall2016InAccounting()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="getApplicationForFall2016InAccounting()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="getApplicationForFall2016InAccounting" duration-ms="12" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getApplicationForFall2016InAccounting -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void springmvc.model.dao.ApplicationDaoTest.getApplicationForFall2016InAccounting()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:springmvc.model.dao.ApplicationDaoTest@185d8b6]" test-instance-name="" name="springTestContextAfterTestClass" is-config="true" duration-ms="3" started-at="2016-02-01T12:58:15Z" finished-at="2016-02-01T12:58:15Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- springmvc.model.dao.ApplicationDaoTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

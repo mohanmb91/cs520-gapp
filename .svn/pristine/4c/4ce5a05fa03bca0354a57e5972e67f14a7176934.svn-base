@@ -1,0 +1,138 @@
+package springmvc.web.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
+import springmvc.model.Department;
+import springmvc.model.EducationBackground;
+import springmvc.model.Program;
+import springmvc.model.Student;
+import springmvc.model.User;
+import springmvc.model.dao.DepartmentsDao;
+import springmvc.model.dao.ProgramDao;
+import springmvc.model.dao.StudentDao;
+import springmvc.model.dao.UserDao;
+
+@Controller
+@SessionAttributes({"student","educationBackground"})
+public class StudentController {
+	@Autowired
+	private UserDao userDao;	
+	@Autowired
+	private StudentDao studentDao;
+	@Autowired
+	private DepartmentsDao departmentDao;
+	@Autowired
+	private ProgramDao programDao;
+	
+	@RequestMapping(value = "/student/studentHome.html", method = RequestMethod.GET)
+	public String studentHomeGet(@RequestParam Integer userId,ModelMap models) {
+		
+		User user = userDao.getUser(userId);
+		models.put("user", user);
+		
+		return "/student/studentHome";
+	}
+	@RequestMapping(value = "/student/editBasicInfo.html", method = RequestMethod.GET)
+	public String editBasicInfo(@RequestParam Integer studentId,ModelMap models, SessionStatus status) {
+		
+		Student student = studentDao.getStudentByUserId(studentId);
+		
+		models.put("student", student);
+		
+		return "/student/editBasicInfo";
+	}
+	@RequestMapping(value = "/student/editBasicInfo.html", method = RequestMethod.POST)
+	public String editBasicInfoPost(@ModelAttribute Student student, SessionStatus status,ModelMap models) {
+		User user = student.getUser();
+		user.setStudent(student);
+		userDao.saveUser(user);
+		status.setComplete();
+		models.put("userId", user.getId());
+		
+		return "redirect:/student/studentHome.html";
+	}
+	
+	@RequestMapping(value = "/student/removeEducationBackground.html", method = RequestMethod.GET)
+	public String removeEducationBackground(@RequestParam Integer educationalBG,@RequestParam Integer studentId,SessionStatus status,ModelMap models) 
+	{
+		//int studentId = Integer.parseInt(request.getParameter("studentId"));
+		Student student = studentDao.getStudentByUserId(studentId);
+		List<EducationBackground> eBG = student.getEducationBackgrounds();
+		EducationBackground eachEB= null;
+		for (EducationBackground eachEducationBackground : eBG) {
+			if(eachEducationBackground.getId() == educationalBG){
+			eachEB = eachEducationBackground;
+			}
+		}
+		student.getEducationBackgrounds().remove(eachEB);
+		studentDao.saveStudent(student);
+		
+		studentDao.removeEducationBackground(educationalBG);
+		models.put("userId", student.getUser().getId());
+		return "redirect:/student/studentHome.html";
+	}
+	@RequestMapping(value = "/student/addNewApplication.html", method = RequestMethod.GET)
+	public String addNewApplication(@RequestParam Integer studentId,SessionStatus status,ModelMap models) {
+		Student student = studentDao.getStudentByUserId(studentId);
+		List<Department> department = departmentDao.getDepartments();
+		models.put("department",department );
+		models.put("student", student);
+		return "student/addNewApplication";
+	}
+	@RequestMapping(value = "/student/addNewApplication.html", method = RequestMethod.POST)
+	public String addNewApplicationPost(@RequestParam Integer studentId,SessionStatus status,ModelMap models) {
+		
+		
+		
+		return "student/addNewApplication";
+	}
+
+	@RequestMapping(value = "/student/GetProgram.html")
+	public String getProgramsByDepartment(@RequestParam(value = "departmentID") Integer departmentID)
+    {
+		List<Program> programs = programDao.getPrograms(departmentID);
+		String html = "";
+		
+			for (Program program : programs)
+			{
+				html += "<option value = '"+program.getId()+"'>"+program.getName()+"</option>";
+			}
+			
+			return html;
+    }
+	@RequestMapping(value = "/student/addNewEducationalBackground.html", method = RequestMethod.GET)
+	public String addNewEducationalBackground(@RequestParam Integer studentId,SessionStatus status,ModelMap models) {
+		models.put("studentId", studentId);
+		EducationBackground educationBackground = new EducationBackground();
+		models.put("educationBackground", educationBackground);
+		return "/student/addNewEducationalBackground";
+	}
+	@RequestMapping(value = "/student/addNewEducationalBackground.html", method = RequestMethod.POST)
+	public String addNewEducationalBackgroundPost(@RequestParam Integer studentId,@ModelAttribute EducationBackground educationBackground,SessionStatus status,ModelMap models) {
+		Student student = studentDao.getStudentByUserId(studentId);
+		List<EducationBackground> educationalBackgrounds = student.getEducationBackgrounds();
+		if(educationalBackgrounds == null){
+			educationalBackgrounds = new ArrayList<EducationBackground>();
+		}
+		educationalBackgrounds.add(educationBackground);
+		student.setEducationBackgrounds(educationalBackgrounds);
+		
+		studentDao.saveStudent(student);
+		models.put("userId", student.getUser().getId());
+		return "redirect:/student/studentHome.html";
+	}
+}

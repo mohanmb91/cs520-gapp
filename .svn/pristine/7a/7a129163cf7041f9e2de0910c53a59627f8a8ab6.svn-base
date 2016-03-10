@@ -1,0 +1,86 @@
+package springmvc.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "departments")
+public class Department {
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Program> getPrograms() {
+		return programs;
+	}
+
+	public void setPrograms(List<Program> programs) {
+		this.programs = programs;
+	}
+
+	public void setPrograms(Program programs) {
+
+		if(this.programs.size()==0)
+			this.programs= new ArrayList<Program>();
+		this.programs.add(programs);
+	}
+	public List<AdditionalDepartmentFeilds> getRequirements() {
+		return deptRequirements;
+	}
+
+	public void setRequirements(List<AdditionalDepartmentFeilds> requirements) {
+		this.deptRequirements = requirements;
+	}
+	
+	public void setRequirements(AdditionalDepartmentFeilds requirements) {
+		if(this.deptRequirements.size()==0)
+			this.deptRequirements= new ArrayList<AdditionalDepartmentFeilds>();
+		this.deptRequirements.add(requirements);
+	}
+
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer id;
+	
+	@Column(name = "dept_name")
+	
+	private String name;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Program> programs;
+	
+	@OneToMany(targetEntity= AdditionalDepartmentFeilds.class,cascade = CascadeType.ALL)
+	
+	private List<AdditionalDepartmentFeilds> deptRequirements;
+
+	public List<AdditionalDepartmentFeilds> getDeptRequirements() {
+		return deptRequirements;
+	}
+
+	public void setDeptRequirements(List<AdditionalDepartmentFeilds> deptRequirements) {
+		this.deptRequirements = deptRequirements;
+	}
+	
+}

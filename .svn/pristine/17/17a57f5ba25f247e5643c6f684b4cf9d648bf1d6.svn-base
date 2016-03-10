@@ -1,0 +1,63 @@
+package springmvc.model;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "departments")
+public class Department {
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Program> getPrograms() {
+		return programs;
+	}
+
+	public void setPrograms(List<Program> programs) {
+		this.programs = programs;
+	}
+
+	public List<AdditionalDepartmentFeilds> getRequirements() {
+		return deptRequirements;
+	}
+
+	public void setRequirements(List<AdditionalDepartmentFeilds> requirements) {
+		this.deptRequirements = requirements;
+	}
+
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer id;
+	
+	@Column(name = "dept_name")
+	
+	private String name;
+	
+	@OneToMany
+	private List<Program> programs;
+	
+	@OneToMany
+	private List<AdditionalDepartmentFeilds> deptRequirements;
+	
+}
